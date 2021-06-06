@@ -9,8 +9,9 @@ def index():
     '''
     message = 'Welcome to News Feed,Stay updated'
     return render_template('index.html',message=message)
-
+@app.route('/news/<int:news_id>')
 def news(news_id):
     '''
     returns news details page and its data
     '''
+    return render_template('news.html',id = news_id)
