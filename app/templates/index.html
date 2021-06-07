@@ -1,4 +1,4 @@
-
+<!-- {% import 'macros.html' as macro%}
 <h3>News source</h3>
 <ul>
     {% for source in sources %}
@@ -6,4 +6,21 @@
     <p>{{source.description}}</p>
     <a href="{{source.url}}">view {{source.name}}</a>
     {% endfor %}
-</ul>
+</ul> -->
+
+{% extends 'base.html'%}
+<!-- style block -->
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+    {% block content %}
+    <h1>{{welcome}}</h1>
+    <!-- Getting news source -->
+    <div class="container">
+        <h2>News Sources</h2>
+        <ol>
+           {{macro.displaySourceList(sources)}}
+        </ol>
+    </div>
+    {% endblock%}
