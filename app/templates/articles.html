@@ -1,1 +1,9 @@
-<h1>fanta</h1>
+<h1>Title</h1>
+<li>
+    {%for article in articles%}
+    <li>{{article.title}}</li>
+    <img src="{{ article.image }}" alt="image">
+    <p>{{article.description}}</p>
+    <h3>{{article.date}}</h3>
+    {%endfor%}
+</li>
