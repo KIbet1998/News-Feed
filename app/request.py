@@ -1,7 +1,7 @@
 from app import app
 import urllib.request,json
 from .articles import Articles
-from app import articles
+from app import source
 
 Articles = articles.Articles
 Source = source.Source
@@ -25,38 +25,59 @@ def get_sources(category):
             source_results_list = get_sources_response['sources']
             source_results = process_results(source_results_list)
     return source_results
-    
-def get_articles(id):
+
+def process_results(source_list):
     '''
-    process the articles and returns a list of objects
+    Function that processes the source result and transform them to a list of Objects
+    Args:
+        sources_list:A list of dictionaries that contain news details
+    Returns:
+            source_results:A list of news objects
     '''
-    get_articles_url = articles_url.format(id,api_key)
-    with urllib.request.urlopen(get_articles_url) as url:
-        get_articles_data= url.read()
-        get_articles_response=json.loads(get_articles_data)
-        articles_result=None
-        if get_articles_response['articles']:
-            articles_result_list=get_articles_response['articles']
-            articles_result = process_articles(articles_result_list)
+    source_results=[]
+    for source_item in  source_list:
+        id = source_item.get('id')
+        name= source_item.get('name')
+        description = source_item.get('description')
+        url = source_item.get('url')
+        category = source_item.get('category')
+        language = source_item.get('language')
+        country = source_item.get('country')
+        sources_object = Source(id,name,description,url,category,country,language)
+        source_results.append(sources_object)
+    return source_results
+
+# def get_articles(id):
+#     '''
+#     process the articles and returns a list of objects
+#     '''
+#     get_articles_url = articles_url.format(id,api_key)
+#     with urllib.request.urlopen(get_articles_url) as url:
+#         get_articles_data= url.read()
+#         get_articles_response=json.loads(get_articles_data)
+#         articles_result=None
+#         if get_articles_response['articles']:
+#             articles_result_list=get_articles_response['articles']
+#             articles_result = process_articles(articles_result_list)
     
-    return articles_result   
+#     return articles_result   
 
 
-def process_articles(articles_list):
-    articles_object=[]
-    for article_item in articles_list:
-        id= article_item.get('id')
-        title =article_item.get('title')
-        description=article_item.get('description')
-        url=article_item.get('url')
-        image=article_item.get('image')
-        date = article_item.get('date')
+# def process_articles(articles_list):
+#     articles_object=[]
+#     for article_item in articles_list:
+#         id= article_item.get('id')
+#         title =article_item.get('title')
+#         description=article_item.get('description')
+#         url=article_item.get('url')
+#         image=article_item.get('image')
+#         date = article_item.get('date')
 
-        if image:
-            articles_result=Articles(id,title,description,url,image,date)
-            articles_object.append(articles_result)
+#         if image:
+#             articles_result=Articles(id,title,description,url,image,date)
+#             articles_object.append(articles_result)
        
 
-    print(articles_object)
-    return articles_object
+#     print(articles_object)
+#     return articles_object
 
