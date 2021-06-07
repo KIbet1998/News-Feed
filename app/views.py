@@ -1,7 +1,7 @@
 from flask import render_template,request
 from app import app
-from .request import get_sources,process_articles
-from app import source
+from .request import get_sources
+from .models import source
 
 # views
 @app.route('/')
@@ -12,7 +12,7 @@ def index():
     sources = get_sources('sources')
     print(sources)
 
-    return render_template('index.html',message=message,articles = articles)
+    return render_template('index.html',sources = sources)
 
     
    

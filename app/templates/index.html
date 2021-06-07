@@ -1,7 +1,9 @@
-<h1>{{message}}</h1>
+
 <h3>News Articles</h3>
 <ul>
-    {% for article in articles %}
-    <li>{{article}}</li>
+    {% for source in sources %}
+    <li>{{source.name}}</li>
+    <p>{{source.description}}</p>
+    <a href="{{source.url}}">view {{source.name}}</a>
     {% endfor %}
 </ul>
