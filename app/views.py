@@ -19,6 +19,12 @@ def articles():
     articles = get_articles('sports')
     return render_template('articles.html',articles = articles)
 
+@app.route('/sports')
+def sports():
+    articles = get_articles('sports')
+    return render_template('articles.html',articles = articles)
+
+
     
    
 
